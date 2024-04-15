@@ -121,8 +121,8 @@ async function onBtnClick() {
     } catch (error) {
         console.log(error.message);
     } finally {
-       
-     loader.classList.add("hide");   
+            loader.classList.add("hide");   
+
     }
    
 
