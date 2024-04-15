@@ -43,7 +43,7 @@ button{
   gap: 24px;
   list-style-type: none;
     margin-top: 40px;
-    justify-content: center;
+    margin-left: 75px;
 }
 
 li {
@@ -139,4 +139,9 @@ width: 320px;
 
 .hide{
   display: none;
+}
+
+.load-button{
+  display: block;
+  margin: 0 auto;
 }

@@ -9,11 +9,17 @@
   </head>
   <body>
     <form class="form">
-      <input type="text" id="pictures" placeholder="Enter here..." />
+      <input
+        type="text"
+        id="pictures"
+        placeholder="Enter here..."
+        name="pictures"
+      />
       <button type="submit">Search</button>
     </form>
 
     <ul class="gallery"></ul>
+    <button type="button" class="load-button hide">Load more</button>
     <span class="loader hide"></span>
     <script type="module" src="./main.js"></script>
     <!-- <script type="module" src="./js/pixabay-api.js"></script>
