@@ -13,6 +13,8 @@ const form = document.querySelector(".form");
 const searchButton = document.querySelector("button");
 const loader = document.querySelector(".loader");
 const loadBtn = document.querySelector(".load-button");
+const input = document.querySelector("#pictures");
+
 let page = 1;
  let searchWord = null;
 
@@ -25,39 +27,33 @@ let page = 1;
    
 form.addEventListener("submit", handleSubmit);
 loadBtn.addEventListener("click", onBtnClick);
-
 async function handleSubmit(event) {
     event.preventDefault();
    
-    const input = document.querySelector("#pictures");
-   
-
     document.querySelector(".gallery").innerHTML = "";
-    
-    if (searchWord === "") {
-        console.log("empty");
-          iziToast.show({
-                    message: `Sorry, there are no images matching your search query. Please try again!`,
-                    messageColor: "#fff",
-                    position: "topRight",
-                    backgroundColor: "#ef4040",
-                    progressBar: false,
-                    close: false,
-                    timeout: 5000,
-          });
+    loader.classList.remove("hide");
+    searchWord = event.currentTarget.elements["pictures"].value.trim();
+loadBtn.classList.add('hide');
+    // if (searchWord === "") {
+    //     console.log("empty");
+    //       iziToast.show({
+    //                 message: `Sorry, there are no images matching your search query. Please try again!`,
+    //                 messageColor: "#fff",
+    //                 position: "topRight",
+    //                 backgroundColor: "#ef4040",
+    //                 progressBar: false,
+    //                 close: false,
+    //                 timeout: 5000,
+    //       });
         
         
-       return;
-    };
+    //    return;
+    // };
 
-      loader.classList.remove("hide");
-   
-searchWord = event.currentTarget.elements["pictures"].value.trim();
-    try {
-        
+    try {  
      const data = await apiPixabay(searchWord, page)
     
-            if (data.hits.length === 0) {
+            if (data.hits.length === 0 || searchWord === "") {
                 iziToast.show({
                     message: `Sorry, there are no images matching your search query. Please try again!`,
                     messageColor: "#fff",
@@ -66,15 +62,16 @@ searchWord = event.currentTarget.elements["pictures"].value.trim();
                     progressBar: false,
                     close: false,
                     timeout: 5000,
-            });
-           
+                });
+                 
+                return;
             }
             console.log(data);
            
          addPictures(data.hits);
 
-          if (data.hits.length > 15) {
-        loadBtn.remove('hide');
+        if (data.total > 15) {    
+        loadBtn.classList.remove('hide');
       }
         
     } catch (error) {
@@ -89,7 +86,6 @@ searchWord = event.currentTarget.elements["pictures"].value.trim();
 
 
 async function onBtnClick() {
-    // loader.classList.remove("hide");
     page += 1;
     try {
         const data = await apiPixabay(searchWord, page)
@@ -103,14 +99,15 @@ async function onBtnClick() {
                 behavior: "smooth"
             });
         
-            const lastPage = Math.ceil(data.total / 15);
+         
+        const lastPage = Math.ceil(data.totalHits / 15);
             if (lastPage === page) {
-                // loadBtn.classList.add("hide")
-                return iziToast.show({
+                loadBtn.classList.add('hide');
+                 return iziToast.show({
                     message: `We're sorry, but you've reached the end of search results.`,
                     messageColor: "#fff",
-                    position: "topRight",
-                    backgroundColor: "light blue",
+                    position: "bottomRight",
+                    backgroundColor: "#cb73fc",
                     progressBar: false,
                     close: false,
                     timeout: 5000,
@@ -120,12 +117,7 @@ async function onBtnClick() {
       
     } catch (error) {
         console.log(error.message);
-    } finally {
-            loader.classList.add("hide");   
-
-    }
-   
-
+    } 
 }
 
 

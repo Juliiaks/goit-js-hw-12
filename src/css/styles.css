@@ -27,7 +27,7 @@ button{
    
 
     border: none;
-    background-color: #4e75ff;
+    background-color: #cb73fc;
 
     font-family: "Montserrat", sans-serif;
       font-weight: 500;
@@ -35,6 +35,14 @@ button{
       line-height: 1.5;
       letter-spacing: 0.04em;
       color: #fff;
+}
+
+button:hover{
+  background-color: #8673fc;
+}
+
+button:active{
+  background-color: #cb73fc;
 }
 
 .gallery{
@@ -138,10 +146,27 @@ width: 320px;
 }
 
 .hide{
-  display: none;
+  /* display: none; */
+
+  position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+  
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
 }
 
 .load-button{
   display: block;
   margin: 0 auto;
+  padding: 8px 16px;
+
+  width: 150px;
+  margin-top: 20px;
+  
 }
