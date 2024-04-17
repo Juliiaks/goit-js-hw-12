@@ -29,7 +29,7 @@ form.addEventListener("submit", handleSubmit);
 loadBtn.addEventListener("click", onBtnClick);
 async function handleSubmit(event) {
     event.preventDefault();
-   
+    page = 1;
     document.querySelector(".gallery").innerHTML = "";
     loader.classList.remove("hide");
     searchWord = event.currentTarget.elements["pictures"].value.trim();
